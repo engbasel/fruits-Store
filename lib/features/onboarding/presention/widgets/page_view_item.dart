@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fruites_hup/features/auth/presention/views/login_view.dart';
 
 class PageviewItem extends StatelessWidget {
   const PageviewItem(
@@ -46,9 +47,9 @@ class PageviewItem extends StatelessWidget {
                   onTap: () {
                     // Prefs.setBool(kIsOnBoardingViewSeen, true);
 
-                    // Navigator.of(context).pushReplacementNamed(
-                    //   SigninView.routeName,
-                    // );
+                    Navigator.of(context).pushReplacementNamed(
+                      LoginView.routeName,
+                    );
                   },
                   child: Padding(
                     padding: const EdgeInsets.all(16),

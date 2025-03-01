@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:fruites_hup/core/utils/app_colors.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
+import 'package:fruites_hup/features/auth/presention/views/login_view.dart';
 import 'package:fruites_hup/features/onboarding/presention/widgets/on_boarding_page_view.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
@@ -50,6 +51,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             activeColor: AppColors.primaryColor,
             color: currentPage == 1
                 ? AppColors.primaryColor
+                // ignore: deprecated_member_use
                 : AppColors.primaryColor.withOpacity(.5),
           ),
         ),
@@ -66,7 +68,11 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
               horizontal: Constants.kHorizintalPadding,
             ),
             child: CustomButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushReplacementNamed(
+                  LoginView.routeName,
+                );
+              },
               text: 'ابدأ الان',
             ),
           ),
