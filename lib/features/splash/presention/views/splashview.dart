@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruites_hup/features/splash/presention/views/onboardingView.dart';
+import 'package:fruites_hup/features/onboarding/presention/views/OnboardingView.dart';
 import 'package:fruites_hup/features/splash/presention/widgets/SplashViewBody.dart';
 
 class SplashView extends StatefulWidget {
@@ -27,7 +27,7 @@ class _SplashViewState extends State<SplashView> {
 
   /// Navigate to the onboarding screen after a delay of 3 seconds.
   void _navigateToOnboarding() {
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 7), () {
       Navigator.pushNamed(context, OnboardingView.routeName);
     });
   }
