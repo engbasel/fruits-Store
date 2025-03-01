@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruites_hup/features/splash/presention/views/onboardingView.dart';
 import 'package:fruites_hup/features/splash/presention/views/splashview.dart';
 
 class OnGenerateRoute {
@@ -6,8 +7,10 @@ class OnGenerateRoute {
     final args = settings.arguments;
 
     switch (settings.name) {
-      case Splashview.routeName:
-        return MaterialPageRoute(builder: (_) => const Splashview());
+      case SplashView.routeName:
+        return MaterialPageRoute(builder: (_) => const SplashView());
+      case OnboardingView.routeName:
+        return MaterialPageRoute(builder: (_) => const OnboardingView());
       case '/details':
         if (args is String) {
           return MaterialPageRoute(

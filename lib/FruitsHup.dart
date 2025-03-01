@@ -12,7 +12,7 @@ class FruitsHup extends StatelessWidget {
       title: 'Fruites App',
       theme: ThemeData(),
       onGenerateRoute: OnGenerateRoute.generateRoute,
-      initialRoute: Splashview.routeName,
+      initialRoute: SplashView.routeName,
     );
   }
 }

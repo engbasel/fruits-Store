@@ -1,15 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:fruites_hup/features/splash/presention/views/onboardingView.dart';
 import 'package:fruites_hup/features/splash/presention/widgets/SplashViewBody.dart';
 
-class Splashview extends StatelessWidget {
-  const Splashview({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
-  static const String routeName = 'Splashview';
+  static const String routeName = 'SplashView';
+
+  @override
+  State<SplashView> createState() => _SplashViewState();
+}
+
+class _SplashViewState extends State<SplashView> {
+  @override
+  void initState() {
+    super.initState();
+    _navigateToOnboarding();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: const SplashViewBody(),
     );
+  }
+
+  /// Navigate to the onboarding screen after a delay of 3 seconds.
+  void _navigateToOnboarding() {
+    Future.delayed(const Duration(seconds: 3), () {
+      Navigator.pushNamed(context, OnboardingView.routeName);
+    });
   }
 }
