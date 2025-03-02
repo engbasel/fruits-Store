@@ -2,6 +2,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:fruites_hup/core/services/shared_preferences_singleton.dart';
 import 'package:fruites_hup/core/utils/app_colors.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
@@ -69,6 +70,8 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             ),
             child: CustomButton(
               onPressed: () {
+                // Navigate to login view
+                Prefs.setBool(Constants.kIsOnBoardingViewSeen, true);
                 Navigator.of(context).pushReplacementNamed(
                   LoginView.routeName,
                 );

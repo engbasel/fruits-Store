@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fruites_hup/core/services/shared_preferences_singleton.dart';
+import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/features/auth/presention/views/login_view.dart';
 
 class PageviewItem extends StatelessWidget {
@@ -45,7 +47,7 @@ class PageviewItem extends StatelessWidget {
                 visible: isVisible,
                 child: GestureDetector(
                   onTap: () {
-                    // Prefs.setBool(kIsOnBoardingViewSeen, true);
+                    Prefs.setBool(Constants.kIsOnBoardingViewSeen, true);
 
                     Navigator.of(context).pushReplacementNamed(
                       LoginView.routeName,
