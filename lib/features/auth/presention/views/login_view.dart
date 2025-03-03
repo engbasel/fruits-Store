@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruites_hup/core/widgets/custom_app_bar.dart';
 import 'package:fruites_hup/features/auth/presention/widgets/login_view_body.dart';
 
 class LoginView extends StatelessWidget {
@@ -8,7 +9,9 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoginViewBody(),
+      appBar: buildAppBar(context, title: 'تسجيل دخول'),
+      backgroundColor: Colors.white,
+      body: SafeArea(child: LoginViewBody()),
     );
   }
 }

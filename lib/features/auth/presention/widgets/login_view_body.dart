@@ -22,7 +22,11 @@ class LoginViewBody extends StatelessWidget {
         ),
         child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(
+                  // height: MediaQuery.of(context).size.height * .03,
+                  ),
               const SizedBox(
                 height: 24,
               ),
