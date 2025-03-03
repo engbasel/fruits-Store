@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:fruites_hup/core/utils/app_text_styles.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -12,13 +11,12 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final Widget? suffixIcon;
   @override
-/*************  ✨ Codeium Command ⭐  *************/
+
   /// Builds a [TextFormField] widget with specified keyboard type, hint text,
   /// and an optional suffix icon. The field has a custom input decoration
   /// including a hint style, fill color, and borders. Suitable for use
   /// within forms requiring text input.
 
-/******  d5339820-48d5-483b-b1db-a65e143c9b82  *******/
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: textInputType,
