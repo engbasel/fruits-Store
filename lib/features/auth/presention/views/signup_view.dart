@@ -4,7 +4,7 @@ import 'package:fruites_hup/core/services/getit_services.dart';
 import 'package:fruites_hup/core/widgets/custom_app_bar.dart';
 import 'package:fruites_hup/features/auth/domain/repo/auth_repo.dart';
 import 'package:fruites_hup/features/auth/presention/cubits/sign_up_cubit/sign_up_cubit.dart';
-import 'package:fruites_hup/features/auth/presention/widgets/signup_view_body.dart';
+import 'package:fruites_hup/features/auth/presention/widgets/CoustomsingupblocConsuomer.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});
@@ -16,7 +16,7 @@ class SignupView extends StatelessWidget {
       appBar: buildAppBar(context, title: 'حساب جديد'),
       body: BlocProvider(
         create: (context) => SingupcubitCubit(getIt<AuthRepo>()),
-        child: SignupViewBody(),
+        child: CoustomsingupblocConsuomer(),
       ),
     );
   }

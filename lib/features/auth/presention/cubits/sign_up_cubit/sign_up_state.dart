@@ -12,7 +12,7 @@ class SingupcubitSuccess extends SingupcubitState {
 
 class SingupcubitLoading extends SingupcubitState {}
 
-class SingupcubitError extends SingupcubitState {
+class SingupcubitFailure extends SingupcubitState {
   final String errorMessage;
-  SingupcubitError({required this.errorMessage});
+  SingupcubitFailure({required this.errorMessage});
 }
