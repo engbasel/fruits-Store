@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:flutter_svg/svg.dart';
 import 'package:fruites_hup/core/utils/app_text_styles.dart';
 

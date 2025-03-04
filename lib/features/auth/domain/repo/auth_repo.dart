@@ -3,7 +3,7 @@ import 'package:fruites_hup/core/errors/Flauier.dart';
 import 'package:fruites_hup/features/auth/domain/entity/UserEntity.dart';
 
 abstract class AuthRepo {
-  Future<Either<Failure, UserEntity>> signInWithEmailAndPassword(
+  Future<Either<Failure, UserEntity>> CreateaccountWithEmailAndPassword(
       String email, String password);
 
   // Future<Either<Failure, UserEntity>> signUpWithEmailAndPassword(
