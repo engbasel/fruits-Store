@@ -31,6 +31,7 @@ class LoginViewBody extends StatelessWidget {
                 height: 24,
               ),
               CustomTextFormField(
+                controller: TextEditingController(),
                 onSaved: (p0) {},
                 hintText: 'البريد الالكتروني',
                 textInputType: TextInputType.emailAddress,
@@ -39,6 +40,7 @@ class LoginViewBody extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
+                controller: TextEditingController(),
                 onSaved: (p0) {},
                 suffixIcon: Icon(
                   Icons.remove_red_eye,

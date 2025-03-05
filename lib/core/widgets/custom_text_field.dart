@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:fruites_hup/core/utils/app_text_styles.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  const CustomTextFormField(
+  CustomTextFormField(
       {super.key,
       required this.hintText,
+      required this.controller,
       required this.onSaved,
       required this.textInputType,
       this.suffixIcon});
   final String hintText;
   final TextInputType textInputType;
   final Widget? suffixIcon;
+  TextEditingController? controller;
   final void Function(String?)? onSaved;
   @override
 
@@ -21,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: controller,
       onSaved: onSaved,
       validator: (value) {
         if (value!.isEmpty) {

@@ -15,8 +15,52 @@ class SignupViewBody extends StatefulWidget {
 class _SignupViewBodyState extends State<SignupViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController emailAddresscontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String email, password, name;
+  void debugLog(String label, String message) {
+    debugPrint('''
+------------------------------------------------------------
+📌 [$label] 
+------------------------------------------------------------
+$message
+------------------------------------------------------------
+''');
+  }
+
+  void onSignupPressed() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+
+      debugLog(
+          '✅ VALIDATION PASSED', 'Form is valid, proceeding with sign-up.');
+
+      context.read<SingupcubitCubit>().createAccountWithEmailAndPassword(
+            email,
+            password,
+            name,
+          );
+
+      debugLog('🟢 ACCOUNT CREATION',
+          'Creating account with:\nEmail: $email\nPassword: [HIDDEN]\nName: $name');
+
+      passwordcontroller.clear();
+      emailAddresscontroller.clear();
+      namecontroller.clear();
+
+      debugLog('🔄 INPUT CLEARED', 'Resetting input fields after submission.');
+    } else {
+      debugLog('❌ VALIDATION FAILED',
+          'Form validation failed, enabling auto-validation.');
+
+      setState(() {
+        autovalidateMode = AutovalidateMode.always;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -31,6 +75,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 height: 24,
               ),
               CustomTextFormField(
+                  controller: namecontroller,
                   onSaved: (VALUE) {
                     name = VALUE!;
                   },
@@ -40,6 +85,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 height: 16,
               ),
               CustomTextFormField(
+                  controller: emailAddresscontroller,
                   onSaved: (VALUE) {
                     email = VALUE!;
                   },
@@ -49,6 +95,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 height: 16,
               ),
               CustomTextFormField(
+                controller: passwordcontroller,
                 onSaved: (VALUE) {
                   password = VALUE!;
                 },
@@ -67,26 +114,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 height: 30,
               ),
               CustomButton(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    context
-                        .read<SingupcubitCubit>()
-                        .createAccountWithEmailAndPassword(
-                          email,
-                          password,
-                          name,
-                        );
-                    print('create accounted with email and password from ' +
-                        email +
-                        ' and ' +
-                        password);
-                  } else {
-                    setState(() {
-                      autovalidateMode = AutovalidateMode.always;
-                    });
-                  }
-                },
+                onPressed: onSignupPressed,
                 text: 'إنشاء حساب جديد',
               ),
               SizedBox(
