@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
-import 'package:fruites_hup/core/utils/debug_logger.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
 import 'package:fruites_hup/core/widgets/custom_text_field.dart';
-import 'package:fruites_hup/features/auth/presention/cubits/sign_up_cubit/sign_up_cubit.dart';
+import 'package:fruites_hup/features/auth/presention/signup_handler.dart';
 import 'package:fruites_hup/features/auth/presention/widgets/have_an_account_widget.dart';
 import 'package:fruites_hup/features/auth/presention/widgets/terms_and_conditions.dart';
 
@@ -15,48 +13,15 @@ class SignupViewBody extends StatefulWidget {
 
 class _SignupViewBodyState extends State<SignupViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController emailAddresscontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
-  late String email, password, name;
 
-  void onSignupPressed() {
-    if (formKey.currentState!.validate()) {
-      formKey.currentState!.save();
-
-      DebugLogger.log(
-          'VALIDATION PASSED', 'Form is valid, proceeding with sign-up.',
-          icon: '✅');
-
-      context.read<SingupcubitCubit>().createAccountWithEmailAndPassword(
-            email,
-            password,
-            name,
-          );
-
-      DebugLogger.log('ACCOUNT CREATION',
-          'Creating account with:\nEmail: $email\nPassword: [HIDDEN]\nName: $name',
-          icon: '🟢');
-
-      // Clear input fields after successful sign-up
-      passwordcontroller.clear();
-      emailAddresscontroller.clear();
-      namecontroller.clear();
-
-      DebugLogger.log(
-          'INPUT CLEARED', 'Resetting input fields after submission.',
-          icon: '🔄');
-    } else {
-      DebugLogger.log('VALIDATION FAILED',
-          'Form validation failed, enabling auto-validation.',
-          icon: '❌');
-
-      setState(() {
-        autovalidateMode = AutovalidateMode.always;
-      });
-    }
+  void updateValidationMode(AutovalidateMode mode) {
+    setState(() {
+      autovalidateMode = mode;
+    });
   }
 
   @override
@@ -69,55 +34,46 @@ class _SignupViewBodyState extends State<SignupViewBody> {
           autovalidateMode: autovalidateMode,
           child: Column(
             children: [
-              const SizedBox(
-                height: 24,
-              ),
+              const SizedBox(height: 24),
               CustomTextFormField(
-                  controller: namecontroller,
-                  onSaved: (VALUE) {
-                    name = VALUE!;
-                  },
-                  hintText: 'الاسم كامل',
-                  textInputType: TextInputType.name),
-              const SizedBox(
-                height: 16,
+                controller: nameController,
+                onSaved: (value) => nameController.text = value!,
+                hintText: 'الاسم كامل',
+                textInputType: TextInputType.name,
               ),
+              const SizedBox(height: 16),
               CustomTextFormField(
-                  controller: emailAddresscontroller,
-                  onSaved: (VALUE) {
-                    email = VALUE!;
-                  },
-                  hintText: 'البريد الإلكتروني',
-                  textInputType: TextInputType.emailAddress),
-              const SizedBox(
-                height: 16,
+                controller: emailController,
+                onSaved: (value) => emailController.text = value!,
+                hintText: 'البريد الإلكتروني',
+                textInputType: TextInputType.emailAddress,
               ),
+              const SizedBox(height: 16),
               CustomTextFormField(
-                controller: passwordcontroller,
-                onSaved: (VALUE) {
-                  password = VALUE!;
-                },
-                suffixIcon: Icon(
-                  Icons.remove_red_eye,
-                  color: Color(0xffC9CECF),
-                ),
+                controller: passwordController,
+                onSaved: (value) => passwordController.text = value!,
+                suffixIcon:
+                    Icon(Icons.remove_red_eye, color: Color(0xffC9CECF)),
                 hintText: 'كلمة المرور',
                 textInputType: TextInputType.visiblePassword,
               ),
-              SizedBox(
-                height: 16,
-              ),
+              SizedBox(height: 16),
               TermsAndConditionsWidget(),
-              SizedBox(
-                height: 30,
-              ),
+              SizedBox(height: 30),
               CustomButton(
-                onPressed: onSignupPressed,
+                onPressed: () {
+                  SignupHandler.onSignupPressed(
+                    context: context,
+                    formKey: formKey,
+                    nameController: nameController,
+                    emailController: emailController,
+                    passwordController: passwordController,
+                    updateValidationMode: updateValidationMode,
+                  );
+                },
                 text: 'إنشاء حساب جديد',
               ),
-              SizedBox(
-                height: 26,
-              ),
+              SizedBox(height: 26),
               HaveAnAccountWidget(),
             ],
           ),
