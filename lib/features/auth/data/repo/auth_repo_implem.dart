@@ -11,7 +11,7 @@ class AuthRepoImplem extends AuthRepo {
   AuthRepoImplem({required this.firebaseAuthService});
   @override
   Future<Either<Failure, UserEntity>> CreateaccountWithEmailAndPassword(
-      String email, String password) async {
+      String email, String password, String name) async {
     try {
       var result = await firebaseAuthService.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -21,7 +21,7 @@ class AuthRepoImplem extends AuthRepo {
         ),
       );
     } on Exception catch (e) {
-      return Left(ServerFailure(e.toString()));
+      return Left(ServerFailure('Failed to create user: ${e.toString()}'));
     } catch (e) {
       return Left(ServerFailure('An unknown error occurred.'));
     }

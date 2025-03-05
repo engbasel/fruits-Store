@@ -15,7 +15,7 @@ class SingupcubitCubit extends Cubit<SingupcubitState> {
   ) async {
     emit(SingupcubitLoading());
     final result =
-        await authRepo.CreateaccountWithEmailAndPassword(email, password);
+        await authRepo.CreateaccountWithEmailAndPassword(email, password, name);
     result.fold(
       (failure) => emit(SingupcubitFailure(errorMessage: failure.message)),
       (user) => emit(SingupcubitSuccess(userEntity: user)),

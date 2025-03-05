@@ -68,19 +68,24 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               ),
               CustomButton(
                 onPressed: () {
-                  if (!formKey.currentState!.validate()) {
+                  if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     context
                         .read<SingupcubitCubit>()
                         .createAccountWithEmailAndPassword(
-                            email, password, name);
+                          email,
+                          password,
+                          name,
+                        );
+                    print('create accounted with email and password from ' +
+                        email +
+                        ' and ' +
+                        password);
                   } else {
                     setState(() {
                       autovalidateMode = AutovalidateMode.always;
                     });
                   }
-                  print('Form submitted');
-                  // Navigate to the home screen
                 },
                 text: 'إنشاء حساب جديد',
               ),
