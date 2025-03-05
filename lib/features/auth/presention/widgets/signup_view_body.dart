@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
+import 'package:fruites_hup/core/utils/debug_logger.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
 import 'package:fruites_hup/core/widgets/custom_text_field.dart';
 import 'package:fruites_hup/features/auth/presention/cubits/sign_up_cubit/sign_up_cubit.dart';
@@ -20,22 +21,14 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   TextEditingController passwordcontroller = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   late String email, password, name;
-  void debugLog(String label, String message) {
-    debugPrint('''
-------------------------------------------------------------
-📌 [$label] 
-------------------------------------------------------------
-$message
-------------------------------------------------------------
-''');
-  }
 
   void onSignupPressed() {
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
-      debugLog(
-          '✅ VALIDATION PASSED', 'Form is valid, proceeding with sign-up.');
+      DebugLogger.log(
+          'VALIDATION PASSED', 'Form is valid, proceeding with sign-up.',
+          icon: '✅');
 
       context.read<SingupcubitCubit>().createAccountWithEmailAndPassword(
             email,
@@ -43,17 +36,22 @@ $message
             name,
           );
 
-      debugLog('🟢 ACCOUNT CREATION',
-          'Creating account with:\nEmail: $email\nPassword: [HIDDEN]\nName: $name');
+      DebugLogger.log('ACCOUNT CREATION',
+          'Creating account with:\nEmail: $email\nPassword: [HIDDEN]\nName: $name',
+          icon: '🟢');
 
+      // Clear input fields after successful sign-up
       passwordcontroller.clear();
       emailAddresscontroller.clear();
       namecontroller.clear();
 
-      debugLog('🔄 INPUT CLEARED', 'Resetting input fields after submission.');
+      DebugLogger.log(
+          'INPUT CLEARED', 'Resetting input fields after submission.',
+          icon: '🔄');
     } else {
-      debugLog('❌ VALIDATION FAILED',
-          'Form validation failed, enabling auto-validation.');
+      DebugLogger.log('VALIDATION FAILED',
+          'Form validation failed, enabling auto-validation.',
+          icon: '❌');
 
       setState(() {
         autovalidateMode = AutovalidateMode.always;
