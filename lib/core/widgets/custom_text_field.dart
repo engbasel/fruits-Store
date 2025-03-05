@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fruites_hup/core/utils/app_text_styles.dart';
 
+// ignore: must_be_immutable
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField(
       {super.key,
@@ -8,10 +9,12 @@ class CustomTextFormField extends StatelessWidget {
       required this.controller,
       required this.onSaved,
       required this.textInputType,
+      this.obscureText = false,
       this.suffixIcon});
   final String hintText;
   final TextInputType textInputType;
   final Widget? suffixIcon;
+  final bool obscureText;
   TextEditingController? controller;
   final void Function(String?)? onSaved;
   @override
@@ -23,6 +26,7 @@ class CustomTextFormField extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return TextFormField(
+      obscureText: obscureText,
       controller: controller,
       onSaved: onSaved,
       validator: (value) {
