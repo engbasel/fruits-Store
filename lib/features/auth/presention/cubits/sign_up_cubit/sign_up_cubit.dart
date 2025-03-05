@@ -9,7 +9,10 @@ class SingupcubitCubit extends Cubit<SingupcubitState> {
   SingupcubitCubit(this.authRepo) : super(SingupcubitInitial());
   final AuthRepo authRepo;
   Future<void> createAccountWithEmailAndPassword(
-      String email, String password) async {
+    String email,
+    String password,
+    String name,
+  ) async {
     emit(SingupcubitLoading());
     final result =
         await authRepo.CreateaccountWithEmailAndPassword(email, password);

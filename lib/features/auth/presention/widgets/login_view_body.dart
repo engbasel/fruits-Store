@@ -30,14 +30,16 @@ class LoginViewBody extends StatelessWidget {
               const SizedBox(
                 height: 24,
               ),
-              const CustomTextFormField(
+              CustomTextFormField(
+                onSaved: (p0) {},
                 hintText: 'البريد الالكتروني',
                 textInputType: TextInputType.emailAddress,
               ),
               const SizedBox(
                 height: 16,
               ),
-              const CustomTextFormField(
+              CustomTextFormField(
+                onSaved: (p0) {},
                 suffixIcon: Icon(
                   Icons.remove_red_eye,
                   color: Color(0xffC9CECF),

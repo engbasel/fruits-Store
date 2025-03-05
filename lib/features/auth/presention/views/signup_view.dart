@@ -13,6 +13,7 @@ class SignupView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: buildAppBar(context, title: 'حساب جديد'),
       body: BlocProvider(
         create: (context) => SingupcubitCubit(getIt<AuthRepo>()),

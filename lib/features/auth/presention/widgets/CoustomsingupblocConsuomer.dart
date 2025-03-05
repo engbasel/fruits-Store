@@ -14,7 +14,11 @@ class CoustomsingupblocConsuomer extends StatelessWidget {
     return BlocConsumer<SingupcubitCubit, SingupcubitState>(
       listener: (context, state) {
         if (state is SingupcubitSuccess) {}
-        if (state is SingupcubitFailure) {}
+        if (state is SingupcubitFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.errorMessage),
+          ));
+        }
         if (state is SingupcubitLoading) {}
       },
       builder: (context, state) {
