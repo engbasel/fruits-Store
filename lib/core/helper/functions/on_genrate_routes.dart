@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fruites_hup/core/widgets/ErrorNavigationScreen.dart';
-import 'package:fruites_hup/features/auth/presention/views/login_view.dart';
-import 'package:fruites_hup/features/auth/presention/views/signup_view.dart';
-import 'package:fruites_hup/features/onboarding/presention/views/on_boarding_view.dart';
-import 'package:fruites_hup/features/splash/presention/views/splashview.dart';
+import 'package:fruites_hup/features/authentication/presentation/views/login_view.dart';
+import 'package:fruites_hup/features/authentication/presentation/views/signup_view.dart';
+import 'package:fruites_hup/features/onboarding/presentation/views/on_boarding_view.dart';
+import 'package:fruites_hup/features/splash/presentation/views/splashview.dart';
 
 class OnGenerateRoute {
   static Route<dynamic> generateRoute(RouteSettings settings) {
