@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
 import 'package:fruites_hup/core/widgets/custom_text_field.dart';
-import 'package:fruites_hup/features/auth/presention/signup_handler.dart';
+import 'package:fruites_hup/features/auth/presention/handler/signup_handler.dart';
 import 'package:fruites_hup/features/auth/presention/widgets/have_an_account_widget.dart';
 import 'package:fruites_hup/features/auth/presention/widgets/terms_and_conditions.dart';
 
