@@ -13,7 +13,11 @@ class CoustomsingupblocConsuomer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SingupcubitCubit, SingupcubitState>(
       listener: (context, state) {
-        if (state is SingupcubitSuccess) {}
+        if (state is SingupcubitSuccess) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('تم إنشاء الحساب بنجاح'),
+          ));
+        }
         if (state is SingupcubitFailure) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(state.errorMessage),
