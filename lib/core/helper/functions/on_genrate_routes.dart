@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fruites_hup/core/widgets/ErrorNavigationScreen.dart';
 import 'package:fruites_hup/features/authentication/presentation/views/login_view.dart';
 import 'package:fruites_hup/features/authentication/presentation/views/signup_view.dart';
+import 'package:fruites_hup/features/home/presentation/views/Home_view.dart';
 import 'package:fruites_hup/features/onboarding/presentation/views/on_boarding_view.dart';
 import 'package:fruites_hup/features/splash/presentation/views/splashview.dart';
 
@@ -16,6 +17,8 @@ class OnGenerateRoute {
         return MaterialPageRoute(builder: (_) => const LoginView());
       case SignupView.routeName:
         return MaterialPageRoute(builder: (_) => const SignupView());
+      case homeView.routeName:
+        return MaterialPageRoute(builder: (_) => const homeView());
       default:
         return MaterialPageRoute(builder: (_) => const ErrorNavigationScreen());
     }

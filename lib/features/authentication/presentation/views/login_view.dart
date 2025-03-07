@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruites_hup/core/services/getit_services.dart';
 import 'package:fruites_hup/core/widgets/custom_app_bar.dart';
-import 'package:fruites_hup/features/authentication/presentation/widgets/login_view_body.dart';
+import 'package:fruites_hup/features/authentication/domain/repo/auth_repo.dart';
+import 'package:fruites_hup/features/authentication/presentation/cubits/singincubit/singincubit_cubit.dart';
+import 'package:fruites_hup/features/authentication/presentation/widgets/custom_signIn_bloc_consumer.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -11,7 +15,12 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       appBar: buildAppBar(context, title: 'تسجيل دخول'),
       backgroundColor: Colors.white,
-      body: SafeArea(child: LoginViewBody()),
+      body: SafeArea(
+        child: BlocProvider(
+          create: (context) => SingincubitCubit(getIt<AuthRepo>()),
+          child: CustomSignInBlocConsumer(),
+        ),
+      ),
     );
   }
 }

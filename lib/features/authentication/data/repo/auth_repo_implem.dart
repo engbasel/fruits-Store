@@ -26,4 +26,21 @@ class AuthRepoImplem extends AuthRepo {
       return Left(ServerFailure('An unknown error occurred.'));
     }
   }
+
+  Future<Either<Failure, UserEntity>> LoginWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      var result = await firebaseAuthService.signInWithEmailAndPassword(
+          email: email, password: password);
+      return Right(
+        Usermodel.firebase(
+          result!,
+        ),
+      );
+    } on Exception catch (e) {
+      return Left(ServerFailure('Failed to create user: ${e.toString()}'));
+    } catch (e) {
+      return Left(ServerFailure('An unknown error occurred.'));
+    }
+  }
 }

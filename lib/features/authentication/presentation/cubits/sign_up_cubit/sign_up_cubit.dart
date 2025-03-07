@@ -8,6 +8,7 @@ part 'sign_up_state.dart';
 class SingupcubitCubit extends Cubit<SingupcubitState> {
   SingupcubitCubit(this.authRepo) : super(SingupcubitInitial());
   final AuthRepo authRepo;
+
   Future<void> createAccountWithEmailAndPassword(
     String email,
     String password,

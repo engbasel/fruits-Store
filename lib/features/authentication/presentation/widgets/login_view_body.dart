@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruites_hup/core/utils/app_assets.dart';
 import 'package:fruites_hup/core/utils/app_colors.dart';
 import 'package:fruites_hup/core/utils/app_text_styles.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
 import 'package:fruites_hup/core/widgets/custom_text_field.dart';
+import 'package:fruites_hup/features/authentication/presentation/cubits/singincubit/singincubit_cubit.dart';
 import 'package:fruites_hup/features/authentication/presentation/widgets/or_divider.dart';
 import 'package:fruites_hup/features/authentication/presentation/widgets/social_login_button.dart';
 
 import 'dont_have_account_widget.dart';
 
+// ignore: must_be_immutable
 class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key});
+  TextEditingController EmailController = TextEditingController();
+  TextEditingController PasswordContrroler = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +38,7 @@ class LoginViewBody extends StatelessWidget {
                 validator: (p0) {
                   return null;
                 },
-                controller: TextEditingController(),
+                controller: EmailController,
                 onSaved: (p0) {},
                 hintText: 'البريد الالكتروني',
                 textInputType: TextInputType.emailAddress,
@@ -43,7 +47,7 @@ class LoginViewBody extends StatelessWidget {
                 height: 16,
               ),
               CustomTextFormField(
-                controller: TextEditingController(),
+                controller: PasswordContrroler,
                 validator: (p0) {
                   return null;
                 },
@@ -73,7 +77,12 @@ class LoginViewBody extends StatelessWidget {
                 height: 33,
               ),
               CustomButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.read<SingincubitCubit>().LoginWithEmailAndPassword(
+                        EmailController.text,
+                        PasswordContrroler.text,
+                      );
+                },
                 text: 'تسجيل دخول',
               ),
               const SizedBox(
