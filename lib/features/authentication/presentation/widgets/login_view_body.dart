@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruites_hup/core/utils/ValidationTextField.dart';
 import 'package:fruites_hup/core/utils/app_assets.dart';
 import 'package:fruites_hup/core/utils/app_colors.dart';
 import 'package:fruites_hup/core/utils/app_text_styles.dart';
@@ -12,10 +13,25 @@ import 'package:fruites_hup/features/authentication/presentation/widgets/social_
 
 import 'dont_have_account_widget.dart';
 
-// ignore: must_be_immutable
-class LoginViewBody extends StatelessWidget {
-  TextEditingController EmailController = TextEditingController();
-  TextEditingController PasswordContrroler = TextEditingController();
+class LoginViewBody extends StatefulWidget {
+  @override
+  _LoginViewBodyState createState() => _LoginViewBodyState();
+}
+
+class _LoginViewBodyState extends State<LoginViewBody> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  /// Function to handle login process
+  void _handleLogin() {
+    if (_formKey.currentState!.validate()) {
+      context.read<SingincubitCubit>().LoginWithEmailAndPassword(
+            emailController.text.trim(),
+            passwordController.text.trim(),
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,44 +40,32 @@ class LoginViewBody extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: Constants.kHorizintalPadding,
         ),
-        child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                  // height: MediaQuery.of(context).size.height * .03,
-                  ),
-              const SizedBox(
-                height: 24,
-              ),
+              const SizedBox(height: 24),
               CustomTextFormField(
-                validator: (p0) {
-                  return null;
-                },
-                controller: EmailController,
                 onSaved: (p0) {},
-                hintText: 'البريد الالكتروني',
+                controller: emailController,
+                validator: ValidationTextField.validateEmail,
+                hintText: 'البريد الإلكتروني',
                 textInputType: TextInputType.emailAddress,
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               CustomTextFormField(
-                controller: PasswordContrroler,
-                validator: (p0) {
-                  return null;
-                },
                 onSaved: (p0) {},
-                suffixIcon: Icon(
+                controller: passwordController,
+                validator: ValidationTextField.validatePassword,
+                hintText: 'كلمة المرور',
+                textInputType: TextInputType.visiblePassword,
+                suffixIcon: const Icon(
                   Icons.remove_red_eye,
                   color: Color(0xffC9CECF),
                 ),
-                hintText: 'كلمة المرور',
-                textInputType: TextInputType.visiblePassword,
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -73,45 +77,28 @@ class LoginViewBody extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 33,
-              ),
+              const SizedBox(height: 33),
               CustomButton(
-                onPressed: () {
-                  context.read<SingincubitCubit>().LoginWithEmailAndPassword(
-                        EmailController.text,
-                        PasswordContrroler.text,
-                      );
-                },
+                onPressed: _handleLogin,
                 text: 'تسجيل دخول',
               ),
-              const SizedBox(
-                height: 33,
-              ),
+              const SizedBox(height: 33),
               const DontHaveAnAccountWidget(),
-              const SizedBox(
-                height: 33,
-              ),
+              const SizedBox(height: 33),
               const OrDivider(),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.assetsImagesGoogleIcon,
                 title: 'تسجيل بواسطة جوجل',
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.assetsImagesApplIcon,
                 title: 'تسجيل بواسطة أبل',
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.assetsImagesFacebookIcon,
