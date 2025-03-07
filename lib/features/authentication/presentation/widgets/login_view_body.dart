@@ -31,6 +31,9 @@ class LoginViewBody extends StatelessWidget {
                 height: 24,
               ),
               CustomTextFormField(
+                validator: (p0) {
+                  return null;
+                },
                 controller: TextEditingController(),
                 onSaved: (p0) {},
                 hintText: 'البريد الالكتروني',
@@ -41,6 +44,9 @@ class LoginViewBody extends StatelessWidget {
               ),
               CustomTextFormField(
                 controller: TextEditingController(),
+                validator: (p0) {
+                  return null;
+                },
                 onSaved: (p0) {},
                 suffixIcon: Icon(
                   Icons.remove_red_eye,

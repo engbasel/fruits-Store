@@ -37,6 +37,12 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             children: [
               const SizedBox(height: 24),
               CustomTextFormField(
+                validator: (p0) {
+                  if (p0 == null || p0.isEmpty) {
+                    return 'الاسم مطلوب';
+                  }
+                  return null;
+                },
                 controller: nameController,
                 onSaved: (value) => nameController.text = value!,
                 hintText: 'الاسم كامل',
@@ -44,6 +50,15 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               ),
               const SizedBox(height: 16),
               CustomTextFormField(
+                validator: (p0) {
+                  if (p0!.isEmpty) {
+                    return 'البريد الإلكتروني مطلوب';
+                  }
+                  if (!p0.contains('@')) {
+                    return 'البريد الإلكتروني غير صحيح';
+                  }
+                  return null;
+                },
                 controller: emailController,
                 onSaved: (value) => emailController.text = value!,
                 hintText: 'البريد الإلكتروني',

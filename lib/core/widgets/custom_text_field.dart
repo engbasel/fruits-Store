@@ -8,6 +8,7 @@ class CustomTextFormField extends StatelessWidget {
       required this.hintText,
       required this.controller,
       required this.onSaved,
+      required this.validator,
       required this.textInputType,
       this.obscureText = false,
       this.suffixIcon});
@@ -15,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final Widget? suffixIcon;
   final bool obscureText;
+  final String? Function(String?)? validator;
   TextEditingController? controller;
   final void Function(String?)? onSaved;
   @override
@@ -29,12 +31,14 @@ class CustomTextFormField extends StatelessWidget {
       obscureText: obscureText,
       controller: controller,
       onSaved: onSaved,
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Field is required.';
-        }
-        return null;
-      },
+      validator: validator,
+
+      //  (value) {
+      //   if (value!.isEmpty) {
+      //     return 'Field is required.';
+      //   }
+      //   return null;
+      // },
       keyboardType: textInputType,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,

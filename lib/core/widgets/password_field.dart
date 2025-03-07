@@ -27,6 +27,9 @@ class _PasswordFieldState extends State<PasswordField> {
   @override
   Widget build(BuildContext context) {
     return CustomTextFormField(
+      validator: (p0) {
+        return null;
+      },
       controller: widget.controller,
       obscureText: _isObscure,
       onSaved: widget.onSaved,
