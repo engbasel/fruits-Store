@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruites_hup/core/utils/ValidationTextField.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
 import 'package:fruites_hup/core/widgets/custom_text_field.dart';
@@ -14,9 +15,9 @@ class SignupViewBody extends StatefulWidget {
 
 class _SignupViewBodyState extends State<SignupViewBody> {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
   void updateValidationMode(AutovalidateMode mode) {
@@ -37,12 +38,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
             children: [
               const SizedBox(height: 24),
               CustomTextFormField(
-                validator: (p0) {
-                  if (p0 == null || p0.isEmpty) {
-                    return 'الاسم مطلوب';
-                  }
-                  return null;
-                },
+                validator: ValidationTextField.validateName,
                 controller: nameController,
                 onSaved: (value) => nameController.text = value!,
                 hintText: 'الاسم كامل',
@@ -50,31 +46,15 @@ class _SignupViewBodyState extends State<SignupViewBody> {
               ),
               const SizedBox(height: 16),
               CustomTextFormField(
-                validator: (p0) {
-                  if (p0!.isEmpty) {
-                    return 'البريد الإلكتروني مطلوب';
-                  }
-                  if (!p0.contains('@')) {
-                    return 'البريد الإلكتروني غير صحيح';
-                  }
-                  return null;
-                },
+                validator: ValidationTextField.validateEmail,
                 controller: emailController,
                 onSaved: (value) => emailController.text = value!,
                 hintText: 'البريد الإلكتروني',
                 textInputType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
-              // CustomTextFormField(
-              //   controller: passwordController,
-              //   onSaved: (value) => passwordController.text = value!,
-              //   suffixIcon:
-              //       Icon(Icons.remove_red_eye, color: Color(0xffC9CECF)),
-              //   hintText: 'كلمة المرور',
-              //   textInputType: TextInputType.visiblePassword,
-              // ),
-
               PasswordField(
+                validatorfunc: ValidationTextField.validatePassword,
                 controller: passwordController,
                 onSaved: (value) => passwordController.text = value!,
               ),
