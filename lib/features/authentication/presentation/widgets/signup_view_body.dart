@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:fruites_hup/core/utils/ValidationTextField.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
@@ -19,6 +20,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  bool isTermsAccepted = false;
 
   void updateValidationMode(AutovalidateMode mode) {
     setState(() {
@@ -58,11 +60,36 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 controller: passwordController,
                 onSaved: (value) => passwordController.text = value!,
               ),
-              SizedBox(height: 16),
-              TermsAndConditionsWidget(),
-              SizedBox(height: 30),
+              const SizedBox(height: 16),
+              TermsAndConditionsWidget(
+                onChanged: (value) {
+                  setState(() {
+                    isTermsAccepted = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 30),
               CustomButton(
                 onPressed: () {
+                  if (!isTermsAccepted) {
+                    final snackBar = SnackBar(
+                      elevation: 0,
+                      behavior: SnackBarBehavior.floating,
+                      backgroundColor: Colors.transparent,
+                      content: AwesomeSnackbarContent(
+                        title: 'تنبيه!',
+                        message:
+                            'يجب الموافقة على الشروط والأحكام قبل إنشاء الحساب.',
+                        contentType: ContentType.failure,
+                      ),
+                    );
+
+                    ScaffoldMessenger.of(context)
+                      ..hideCurrentSnackBar()
+                      ..showSnackBar(snackBar);
+                    return;
+                  }
+
                   SignupHandler.onSignupPressed(
                     context: context,
                     formKey: formKey,
@@ -74,7 +101,7 @@ class _SignupViewBodyState extends State<SignupViewBody> {
                 },
                 text: 'إنشاء حساب جديد',
               ),
-              SizedBox(height: 26),
+              const SizedBox(height: 26),
               HaveAnAccountWidget(),
             ],
           ),
