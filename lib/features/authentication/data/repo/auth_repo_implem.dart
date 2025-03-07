@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruites_hup/core/errors/Flauier.dart';
 import 'package:fruites_hup/core/services/Firebase_Auth_Service.dart';
 import 'package:fruites_hup/features/authentication/data/model/userModel.dart';
@@ -9,38 +10,47 @@ class AuthRepoImplem extends AuthRepo {
   final FirebaseAuthService firebaseAuthService;
 
   AuthRepoImplem({required this.firebaseAuthService});
+
+  /// Create an account using email & password
   @override
   Future<Either<Failure, UserEntity>> CreateaccountWithEmailAndPassword(
       String email, String password, String name) async {
     try {
       var result = await firebaseAuthService.createUserWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
+
       return Right(
         Usermodel.firebase(
           result!,
         ),
       );
-    } on Exception catch (e) {
-      return Left(ServerFailure('Failed to create user: ${e.toString()}'));
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure.fromFirebaseAuthError(e));
     } catch (e) {
-      return Left(ServerFailure('An unknown error occurred.'));
+      return Left(ServerFailure('حدث خطأ غير معروف أثناء إنشاء الحساب.'));
     }
   }
 
+  /// Login using email & password
   Future<Either<Failure, UserEntity>> LoginWithEmailAndPassword(
       String email, String password) async {
     try {
       var result = await firebaseAuthService.signInWithEmailAndPassword(
-          email: email, password: password);
+        email: email,
+        password: password,
+      );
+
       return Right(
         Usermodel.firebase(
           result!,
         ),
       );
-    } on Exception catch (e) {
-      return Left(ServerFailure('Failed to create user: ${e.toString()}'));
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure.fromFirebaseAuthError(e));
     } catch (e) {
-      return Left(ServerFailure('An unknown error occurred.'));
+      return Left(ServerFailure('حدث خطأ غير معروف أثناء تسجيل الدخول.'));
     }
   }
 }
