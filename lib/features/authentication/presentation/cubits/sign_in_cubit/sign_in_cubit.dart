@@ -3,7 +3,7 @@ import 'package:fruites_hup/features/authentication/domain/entity/UserEntity.dar
 import 'package:fruites_hup/features/authentication/domain/repo/auth_repo.dart';
 import 'package:meta/meta.dart';
 
-part 'singincubit_state.dart';
+part 'sign_in_state.dart';
 
 class SingincubitCubit extends Cubit<SingincubitState> {
   SingincubitCubit(this.authRepo) : super(SingincubitInitial());

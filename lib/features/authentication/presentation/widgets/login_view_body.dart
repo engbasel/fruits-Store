@@ -7,7 +7,7 @@ import 'package:fruites_hup/core/utils/app_text_styles.dart';
 import 'package:fruites_hup/core/utils/constants.dart';
 import 'package:fruites_hup/core/widgets/custom_button.dart';
 import 'package:fruites_hup/core/widgets/custom_text_field.dart';
-import 'package:fruites_hup/features/authentication/presentation/cubits/singincubit/singincubit_cubit.dart';
+import 'package:fruites_hup/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:fruites_hup/features/authentication/presentation/widgets/or_divider.dart';
 import 'package:fruites_hup/features/authentication/presentation/widgets/social_login_button.dart';
 

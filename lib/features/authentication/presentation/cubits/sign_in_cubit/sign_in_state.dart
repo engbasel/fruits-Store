@@ -1,10 +1,9 @@
-part of 'singincubit_cubit.dart';
+part of 'sign_in_cubit.dart';
 
 @immutable
 abstract class SingincubitState {
   const SingincubitState();
 
-  @override
   List<Object> get props => [];
 }
 
