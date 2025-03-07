@@ -34,6 +34,7 @@ class AuthRepoImplem extends AuthRepo {
   }
 
   /// Login using email & password
+  @override
   Future<Either<Failure, UserEntity>> LoginWithEmailAndPassword(
       String email, String password) async {
     try {
@@ -51,6 +52,22 @@ class AuthRepoImplem extends AuthRepo {
       return Left(ServerFailure.fromFirebaseAuthError(e));
     } catch (e) {
       return Left(ServerFailure('حدث خطأ غير معروف أثناء تسجيل الدخول.'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
+    try {
+      UserCredential result = await firebaseAuthService.signInWithGoogle();
+      if (result.user == null) {
+        return Left(ServerFailure('فشل تسجيل الدخول باستخدام جوجل.'));
+      }
+      return Right(Usermodel.firebase(result.user!));
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure.fromFirebaseAuthError(e));
+    } catch (e) {
+      return Left(
+          ServerFailure('حدث خطأ غير معروف أثناء تسجيل الدخول بواسطة جوجل.'));
     }
   }
 }

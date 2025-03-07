@@ -88,7 +88,12 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               const OrDivider(),
               const SizedBox(height: 16),
               SocialLoginButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Implement social login logic here
+                  // For example, you can use GoogleSignIn or FacebookLogin
+
+                  context.read<SingincubitCubit>().signInWithGoogle();
+                },
                 image: Assets.assetsImagesGoogleIcon,
                 title: 'تسجيل بواسطة جوجل',
               ),

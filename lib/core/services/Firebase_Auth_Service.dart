@@ -1,27 +1,3 @@
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:fruites_hup/core/errors/FirebaseAuthCustomException.dart';
-
-// class FirebaseAuthService {
-//   final FirebaseAuth auth = FirebaseAuth.instance;
-
-//   Future<User?> createUserWithEmailAndPassword({
-//     required String email,
-//     required String password,
-//   }) async {
-//     try {
-//       UserCredential credential = await auth.createUserWithEmailAndPassword(
-//         email: email,
-//         password: password,
-//       );
-//       return credential.user;
-//     } on FirebaseAuthException catch (e) {
-//       throw FirebaseAuthCustomException.fromCode(e.code);
-//     } catch (e) {
-//       throw FirebaseAuthCustomException('An unknown error occurred.');
-//     }
-//   }
-// }
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:fruites_hup/core/errors/FirebaseAuthCustomException.dart';
@@ -71,28 +47,20 @@ class FirebaseAuthService {
     }
   }
 
-  /// Sign in with Google
-  Future<User?> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) return null;
-
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-
-      final OAuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      throw FirebaseAuthCustomException.fromCode(e.code);
-    } catch (e) {
-      throw FirebaseAuthCustomException('An unknown error occurred.');
+  Future<UserCredential> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      throw FirebaseAuthCustomException('تم إلغاء تسجيل الدخول باستخدام جوجل.');
     }
+
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser.authentication;
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   /// Send a password reset email
