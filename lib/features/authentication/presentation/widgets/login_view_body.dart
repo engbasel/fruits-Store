@@ -10,6 +10,7 @@ import 'package:fruites_hup/core/widgets/custom_text_field.dart';
 import 'package:fruites_hup/features/authentication/presentation/cubits/sign_in_cubit/sign_in_cubit.dart';
 import 'package:fruites_hup/features/authentication/presentation/widgets/or_divider.dart';
 import 'package:fruites_hup/features/authentication/presentation/widgets/social_login_button.dart';
+import 'package:fruites_hup/features/localization/app_localizations.dart';
 
 import 'dont_have_account_widget.dart';
 
@@ -50,7 +51,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onSaved: (p0) {},
                 controller: emailController,
                 validator: ValidationTextField.validateEmail,
-                hintText: 'البريد الإلكتروني',
+                hintText: 'Email'.tr(context),
                 textInputType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
@@ -58,7 +59,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onSaved: (p0) {},
                 controller: passwordController,
                 validator: ValidationTextField.validatePassword,
-                hintText: 'كلمة المرور',
+                hintText: 'Password'.tr(context),
                 textInputType: TextInputType.visiblePassword,
                 suffixIcon: const Icon(
                   Icons.remove_red_eye,

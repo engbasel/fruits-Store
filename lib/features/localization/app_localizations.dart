@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class AppLocalizations {
-  final Locale? locale;
-  AppLocalizations({
-    this.locale,
-  });
+  final Locale locale;
+  late Map<String, String> _localizedStrings;
+
+  AppLocalizations({required this.locale});
 
   static AppLocalizations? of(BuildContext context) {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
@@ -15,32 +15,32 @@ class AppLocalizations {
   static const LocalizationsDelegate<AppLocalizations> delegate =
       _AppLocalizationsDelegate();
 
-  late Map<String, String> _localizedStrings;
-
-  Future loadJsonLanguage() async {
-    String jsonString =
-        await rootBundle.loadString("assets/lang/${locale!.languageCode}.json");
-
-    Map<String, dynamic> jsonMap = json.decode(jsonString);
-    _localizedStrings = jsonMap.map((key, value) {
-      return MapEntry(key, value.toString());
-    });
+  Future<void> loadJsonLanguage() async {
+    try {
+      String jsonString = await rootBundle
+          .loadString("assets/lang/${locale.languageCode}.json");
+      Map<String, dynamic> jsonMap = json.decode(jsonString);
+      _localizedStrings =
+          jsonMap.map((key, value) => MapEntry(key, value.toString()));
+    } catch (e) {
+      _localizedStrings = {};
+      debugPrint("Error loading localization file: $e");
+    }
   }
 
-  String translate(String key) => _localizedStrings[key] ?? "";
+  String translate(String key) => _localizedStrings[key] ?? key;
 }
 
 class _AppLocalizationsDelegate
     extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
+
   @override
-  bool isSupported(Locale locale) {
-    return ['en', 'ar'].contains(locale.languageCode);
-  }
+  bool isSupported(Locale locale) => ['en', 'ar'].contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localizations = AppLocalizations(locale: locale);
+    final localizations = AppLocalizations(locale: locale);
     await localizations.loadJsonLanguage();
     return localizations;
   }
@@ -52,10 +52,9 @@ class _AppLocalizationsDelegate
 
 extension TranslateWithParams on String {
   String trWithParams(BuildContext context, Map<String, String> params) {
-    String translation = tr(context); // Existing translation mechanism
+    String translation = tr(context);
     params.forEach((key, value) {
-      translation =
-          translation.replaceAll('{$key}', value); // Replace placeholders
+      translation = translation.replaceAll('{$key}', value);
     });
     return translation;
   }
@@ -63,6 +62,6 @@ extension TranslateWithParams on String {
 
 extension TranslateX on String {
   String tr(BuildContext context) {
-    return AppLocalizations.of(context)!.translate(this);
+    return AppLocalizations.of(context)?.translate(this) ?? this;
   }
 }
