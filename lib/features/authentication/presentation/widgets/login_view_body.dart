@@ -15,6 +15,8 @@ import 'package:fruites_hup/features/localization/app_localizations.dart';
 import 'dont_have_account_widget.dart';
 
 class LoginViewBody extends StatefulWidget {
+  const LoginViewBody({super.key});
+
   @override
   _LoginViewBodyState createState() => _LoginViewBodyState();
 }
@@ -51,7 +53,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onSaved: (p0) {},
                 controller: emailController,
                 validator: ValidationTextField.validateEmail,
-                hintText: 'Email'.tr(context),
+                hintText: 'enter_your_email'.tr(context), // Localized hint
                 textInputType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
@@ -59,7 +61,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 onSaved: (p0) {},
                 controller: passwordController,
                 validator: ValidationTextField.validatePassword,
-                hintText: 'Password'.tr(context),
+                hintText: 'enter_your_password'.tr(context), // Localized hint
                 textInputType: TextInputType.visiblePassword,
                 suffixIcon: const Icon(
                   Icons.remove_red_eye,
@@ -71,7 +73,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'نسيت كلمة المرور؟',
+                    'forgot_password'.tr(context), // Localized text
                     style: TextStyles.semiBold13.copyWith(
                       color: AppColors.lightPrimaryColor,
                     ),
@@ -81,7 +83,7 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               const SizedBox(height: 33),
               CustomButton(
                 onPressed: _handleLogin,
-                text: 'تسجيل دخول',
+                text: 'login'.tr(context), // Localized button text
               ),
               const SizedBox(height: 33),
               const DontHaveAnAccountWidget(),
@@ -90,19 +92,18 @@ class _LoginViewBodyState extends State<LoginViewBody> {
               const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {
-                  // Implement social login logic here
-                  // For example, you can use GoogleSignIn or FacebookLogin
-
                   context.read<SingincubitCubit>().signInWithGoogle();
                 },
                 image: Assets.assetsImagesGoogleIcon,
-                title: 'تسجيل بواسطة جوجل',
+                title: 'or_continue_with_google'
+                    .tr(context), // Localized social login
               ),
               const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.assetsImagesApplIcon,
-                title: 'تسجيل بواسطة أبل',
+                title: 'or_continue_with_apple'
+                    .tr(context), // Localized social login
               ),
               const SizedBox(height: 16),
               SocialLoginButton(
@@ -110,7 +111,8 @@ class _LoginViewBodyState extends State<LoginViewBody> {
                   context.read<SingincubitCubit>().signInWithFacebook();
                 },
                 image: Assets.assetsImagesFacebookIcon,
-                title: 'تسجيل بواسطة فيسبوك',
+                title: 'or_continue_with_facebook'
+                    .tr(context), // Localized social login
               ),
             ],
           ),
