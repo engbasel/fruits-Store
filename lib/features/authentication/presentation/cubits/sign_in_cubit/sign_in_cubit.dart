@@ -32,4 +32,14 @@ class SingincubitCubit extends Cubit<SingincubitState> {
           SignInCubitSuccessfully.AuthenticationSuccessState(userEntity: user)),
     );
   }
+
+  Future<void> signInWithFacebook() async {
+    emit(SingincubitLoading());
+    final result = await authRepo.signInWithFacebook();
+    result.fold(
+      (failure) => emit(SingincubitFailure(errorMessage: failure.message)),
+      (user) => emit(
+          SignInCubitSuccessfully.AuthenticationSuccessState(userEntity: user)),
+    );
+  }
 }

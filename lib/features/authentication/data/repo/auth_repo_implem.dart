@@ -70,4 +70,17 @@ class AuthRepoImplem extends AuthRepo {
           ServerFailure('حدث خطأ غير معروف أثناء تسجيل الدخول بواسطة جوجل.'));
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
+    try {
+      var result = await firebaseAuthService.signInWithFacebook();
+      return Right(Usermodel.firebase(result));
+    } on FirebaseAuthException catch (e) {
+      return Left(ServerFailure.fromFirebaseAuthError(e));
+    } catch (e) {
+      return Left(
+          ServerFailure('حدث خطأ غير معروف أثناء تسجيل الدخول بواسطة فيسبوك.'));
+    }
+  }
 }
